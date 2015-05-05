@@ -78,8 +78,8 @@ rmpass() {
 
             # If the just removed password store was currently active also
             # deactivate it.
-            if [ ${pass_path} = ${PASS_DIR} ];
-                passof
+            if [ "${pass_path}" = "${PASS_DIR}" ]; then
+                passoff
             fi
 
             ;;
