@@ -59,6 +59,13 @@ rmpass() {
         [yY])
             # Remove the corresponding password store
             rm -rf ${pass_path}
+
+            # If the just removed password store was currently active also
+            # deactivate it.
+            if [ ${pass_path} = ${PASS_DIR} ];
+                passof
+            fi
+
             ;;
         [nN]|*)
             return 1
