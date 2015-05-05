@@ -83,10 +83,12 @@ passon() {
     fi
 
     export PASSWORD_STORE_DIR=${pass_path}
+    export PASS_DIR=${pass_path}
 }
 
 passoff() {
-    export PASSWORD_STORE_DIR=
+    unset PASSWORD_STORE_DIR
+    unset PASS_DIR
 }
 
 # Initialize passwrapper
