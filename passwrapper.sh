@@ -21,6 +21,7 @@ passwrapper_initialize() {
 }
 
 lspass() {
+    printf "Available password stores:\n"
     for f in ${PASS_HOME}/*; do
         if [ -d $f ]; then
             printf "%s\n" $(basename $f)
@@ -33,7 +34,7 @@ mkpass() {
     local pass_path=${PASS_HOME}/${name}
 
     if [ -e ${pass_path} ]; then
-        echo "Password store ${name} exists already."
+        printf "Password store %s exists already.\n" ${name}
         return 1
     fi
 
@@ -46,12 +47,12 @@ rmpass() {
     local pass_path=${PASS_HOME}/${name}
 
     if [ ! -e ${pass_path} ]; then
-        echo "Password store ${name} does not exist."
+        printf "Password store %s does not exist.\n" ${name}
         return 1
     fi
 
-    echo "Every password stored in ${name} will be lost!"
-    echo -n "Are you sure? [y/N] "
+    printf "Every password stored in %s will be lost.\n" ${name}
+    printf "Are you sure you want to remove? [y/N] "
     read response
 
     case "${response}" in
@@ -70,7 +71,7 @@ passon() {
     local pass_path=${PASS_HOME}/${name}
 
     if [ ! -e ${pass_path} ]; then
-        echo "Password store ${name} does not exist."
+        printf "Password store %s does not exist.\n" ${name}
         return 1
     fi
 
