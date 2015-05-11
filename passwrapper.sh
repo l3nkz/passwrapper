@@ -17,8 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 passwrapper_initialize() {
-    pass_home=$PASS_HOME
-    EC=0
+    local pass_home=$PASS_HOME
+    local EC=0
 
     if [ "$pass_home" = "" ]; then
         # Use the default
@@ -91,13 +91,13 @@ passwrapper_mkpass_help() {
 
 mkpass() {
     # Parse the given arguments
+    local generate_key=0
+    local name=
+
     if [ $# -lt 1 ]; then
         passwrapper_mkpass_help
         return 1
     fi
-
-    local generate_key=0
-    local name=
 
     while [ $# -gt 0 ]; do
         case "$1" in
@@ -147,6 +147,7 @@ passwrapper_rmpass_help() {
 }
 
 rmpass() {
+    # Parse the given arguments
     local name=
     local quiet=0
 
@@ -217,6 +218,7 @@ passwrapper_passon_help() {
 }
 
 passon() {
+    # Parse the given arguments
     local name=
 
     if [ $# -lt 1 ]; then
@@ -265,6 +267,7 @@ passwrapper_passoff_help() {
 }
 
 passoff() {
+    # Parse the given arguments
     while [ $# -gt 0 ]; do
         case "$1" in
             -h|--help)
