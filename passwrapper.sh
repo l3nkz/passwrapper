@@ -36,7 +36,7 @@ passwrapper_initialize() {
     return ${EC}
 }
 
-lspass_help() {
+passwrapper_lspass_help() {
     printf "lspass [OPTIONS]\n"
     printf "  Show all password stores available.\n\n"
     printf "Options:\n"
@@ -45,12 +45,13 @@ lspass_help() {
 }
 
 lspass() {
+    # Parse the given arguments
     local show_passwords=0
 
     while [ $# -gt 0 ]; do
         case "$1" in
             -h|--help)
-                lspass_help
+                passwrapper_lspass_help
                 return 0
                 ;;
             --passwords)
@@ -58,7 +59,7 @@ lspass() {
                 ;;
             *)
                 printf "Unknown option: %s\n\n" $1
-                lspass_help
+                passwrapper_lspass_help
                 return 1
                 ;;
         esac
@@ -79,7 +80,7 @@ lspass() {
     done
 }
 
-mkpass_help() {
+passwrapper_mkpass_help() {
     printf "mkpass [OPTIONS] NAME\n"
     printf "  Create a new password store with the name NAME.\n\n"
     printf "Options:\n"
@@ -91,7 +92,7 @@ mkpass_help() {
 mkpass() {
     # Parse the given arguments
     if [ $# -lt 1 ]; then
-        mkpass_help
+        passwrapper_mkpass_help
         return 1
     fi
 
@@ -101,7 +102,7 @@ mkpass() {
     while [ $# -gt 0 ]; do
         case "$1" in
             -h|--help)
-                mkpass_help
+                passwrapper_mkpass_help
                 return 0
                 ;;
             --with-key)
@@ -112,7 +113,7 @@ mkpass() {
                     name=$1
                 else
                     printf "Unknown option: %s\n\n" $1
-                    mkpass_help
+                    passwrapper_mkpass_help
                     return 1;
                 fi
                 ;;
@@ -137,7 +138,7 @@ mkpass() {
     fi
 }
 
-rmpass_help() {
+passwrapper_rmpass_help() {
     printf "rmpass [OPTIONS] NAME\n"
     printf "  Remove the password store with the name NAME.\n\n"
     printf "Options:\n"
@@ -150,14 +151,14 @@ rmpass() {
     local quiet=0
 
     if [ $# -lt 1 ]; then
-        rmpass_help
+        passwrapper_rmpass_help
         return 1
     fi
 
     while [ $# -gt 0 ]; do
         case "$1" in
             -h|--help)
-                rmpass_help
+                passwrapper_rmpass_help
                 return 0
                 ;;
             --quiet)
@@ -168,7 +169,7 @@ rmpass() {
                     name=$1
                 else
                     printf "Unknown option: %s\n\n" $1
-                    rmpass_help
+                    passwrapper_rmpass_help
                     return 1
                 fi
                 ;;
@@ -208,7 +209,7 @@ rmpass() {
     fi
 }
 
-passon_help() {
+passwrapper_passon_help() {
     printf "passon [OPTIONS] NAME\n"
     printf "  Activate the password store with the name NAME.\n\n"
     printf "Options:\n"
@@ -219,14 +220,14 @@ passon() {
     local name=
 
     if [ $# -lt 1 ]; then
-        passon_help
+        passwrapper_passon_help
         return 1
     fi
 
     while [ $# -gt 0 ]; do
         case "$1" in
             -h|--help)
-                rmpass_help
+                passwrapper_passon_help
                 return 0
                 ;;
             *)
@@ -234,7 +235,7 @@ passon() {
                     name=$1
                 else
                     printf "Unknown option: %s\n\n" $1
-                    passon_help
+                    passwrapper_passon_help
                     return 1
                 fi
                 ;;
@@ -255,7 +256,7 @@ passon() {
     export PASS_DIR=${pass_path}
 }
 
-passoff_help() {
+passwrapper_passoff_help() {
     printf "passoff [OPTIONS]\n"
     printf "  Deactivate the password stores.\n\n"
     printf "Options:\n"
@@ -267,12 +268,12 @@ passoff() {
     while [ $# -gt 0 ]; do
         case "$1" in
             -h|--help)
-                rmpass_help
+                passwrapper_passoff_help
                 return 0
                 ;;
             *)
                 printf "Unknown option: %s\n\n" $1
-                passoff_help
+                passwrapper_passoff_help
                 return 1
                 ;;
         esac
