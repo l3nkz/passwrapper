@@ -1,14 +1,14 @@
 # passwrapper
 
-Have you always wanted to use multiple password stores for different proposes?
+Have you always wanted to use multiple password stores for different purposes?
 For example one password store for your passwords at work and another one for
 you private passwords?
 
 While this is basically possible with native [pass][pass] it is quite a hassle
-to do use it.
+to setup and use.
 
-This script massively simplifies such a use case by allowing simple switching,
-creating and removing of such password stores.
+This script massively simplifies such a use case by providing functions to perform
+simple switching, creating and removing of such password stores.
 
 
 ## Installation
