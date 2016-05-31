@@ -1,0 +1,99 @@
+#!/usr/bin/env sh
+#
+# passwrappermenu - Multi-account password selection menu.
+# Copyright © 2016 Till Smejkal <till.smejkal+passwrapper@ossmail.de>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Helper functions
+function usage() {
+    printf "passwrappermenu [OPTIONS] [ACCOUNT] [-- DMENU_ARGS]\n"
+    printf "  Multi-account password selection menu\n\n"
+    printf "Options:\n"
+    printf "  -h, --help        Show this help message\n"
+    printf "\n"
+    printf "ACCOUNT             The account which should be used.\n"
+    printf "                    If omitted the script will first ask\n"
+    printf "                    which account should be used."
+    printf "DMENU_ARGS          Further arguments which should be passed\n"
+    printf "                    to dmenu.\n"
+}
+
+# Main
+_account=
+
+while [[ $# -ge 1 ]]; do
+    case "$1" in
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        --)
+            # The remaining options are for dmenu.
+            shift
+            break
+            ;;
+        *)
+            if [[ -z "$_account" ]]; then
+                _account=$1
+            else
+                printf "Unknown option: %s\n\n" $1
+                usage
+                exit 1
+            fi
+            ;;
+    esac
+
+    shift
+done
+
+# Determine where the password stores are saved.
+_pass_home=${PASS_HOME:-"${HOME}/.pass"}
+if [[ ! -d $_pass_home ]]; then
+    # passwrapper is not correctly set up! Abort.
+    printf "passwrapper is not initialized!\n"
+    exit 2;
+fi
+
+if [[ -z "$_account" ]]; then
+    # Use dmenu to ask for the account which should be used.
+    declare -a _accounts
+
+    for ac in $_pass_home/*; do
+        if [[ -d $ac ]]; then
+            _accounts+=( $(basename $ac) )
+        fi
+    done
+
+    if [[ ${#_accounts[@]} -eq 0 ]]; then
+        printf "Could not find any account in your PASS_HOME!\n"
+        exit 2
+    elif [[ ${#_accounts[@]} -eq 1 ]]; then
+        _account=${_accounts[0]}
+        printf "Only account '%s' available in PASS_HOME. Directly use this account.\n" $_account
+    else
+        _account=$(printf "%s\n" "${_accounts[@]}" | dmenu -p "Account: " "$@")
+    fi
+fi
+
+_pass_dir=$_pass_home/$_account
+
+if [[ ! -d $_pass_dir ]]; then
+    # The given account is not available! Abort.
+    printf "The given account '%s' does not exist in PASS_HOME!\n" $_account
+    exit 2
+fi
+
+# Run the passmenu program with the properly set up environment.
+PASSWORD_STORE_DIR=$_pass_dir passmenu -p "Password: " "$@"

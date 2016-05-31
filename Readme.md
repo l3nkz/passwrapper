@@ -57,6 +57,17 @@ the pass program [pass][pass] to manage your passwords.
 
 Deactivate the previously activated password store again.
 
+## Additional Tools
+
+### passwrappermenu
+
+Similar to the [passmenu][pass] tool which is bundled with pass the passwrappermenu program can be used
+to query for any password in your password stores. However, in contrast to passmenu the tool will first
+ask which account should be used and then allows you to query for a password.
+
+Alternatively it is also possible to directly specify which account should be used by the passwrappermenu
+program. The toll will then just setup the environment so that passmenu can be used properly.
+
 ## Short walk-through
 
 0. Make sure the script is properly sourced.
