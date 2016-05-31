@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 #
 # passwrapper - Smoothly manage multiple password stores.
-# Copyright © 2015 Till Smejkal <till.smejkal+passwrapper@ossmail.de>
+# Copyright © 2015-2016 Till Smejkal <till.smejkal+passwrapper@ossmail.de>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ passwrapper_initialize() {
     local pass_home=$PASS_HOME
     local EC=0
 
-    if [ "$pass_home" = "" ]; then
+    if [ -z "$pass_home" ]; then
         # Use the default
         pass_home=$HOME/.pass
     fi
@@ -121,7 +121,7 @@ mkpass() {
 
         shift
     done
-    
+
     local pass_path=${PASS_HOME}/${name}
 
     if [ -e ${pass_path} ]; then
