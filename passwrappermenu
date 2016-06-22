@@ -59,7 +59,7 @@ while [[ $# -ge 1 ]]; do
 done
 
 # Determine where the password stores are saved.
-_pass_home=${PASS_HOME:-"${HOME}/.pass"}
+_pass_home=${PASS_HOME:-${HOME}/.pass}
 if [[ ! -d $_pass_home ]]; then
     # passwrapper is not correctly set up! Abort.
     printf "passwrapper is not initialized!\n"
