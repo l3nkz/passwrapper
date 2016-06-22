@@ -87,6 +87,11 @@ if [[ -z "$_account" ]]; then
     fi
 fi
 
+if [[ -z "$_account" ]]; then
+    # No account was given or selected -- Abort
+    exit 1
+fi
+
 _pass_dir=$_pass_home/$_account
 
 if [[ ! -d $_pass_dir ]]; then
