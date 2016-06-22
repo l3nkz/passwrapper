@@ -41,6 +41,12 @@ _passoff () {
 
     COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
 }&&
+_passwrappermenu () {
+    local cur=$1
+    local opts="-h --help"
+
+    COMPREPLY=( $(compgen -W "${opts} $(_pass_stores)" -- "${cur}") )
+}&&
 _passwrapper () {
     local cur prev words cword
 
@@ -62,6 +68,9 @@ _passwrapper () {
         passoff)
             _passoff ${cur}
             ;;
+        passwrappermenu)
+            _passwrappermenu ${cur}
+            ;;
         *)
             return
             ;;
@@ -71,4 +80,5 @@ complete -o nospace -F _passwrapper lspass &&
 complete -o nospace -F _passwrapper mkpass &&
 complete -o nospace -F _passwrapper rmpass &&
 complete -o nospace -F _passwrapper passon &&
-complete -o nospace -F _passwrapper passoff
+complete -o nospace -F _passwrapper passoff &&
+complete -o nospace -F _passwrapper passwrappermenu

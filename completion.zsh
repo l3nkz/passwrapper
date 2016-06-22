@@ -1,4 +1,4 @@
-#compdef lspass mkpass rmpass passon passoff
+#compdef lspass mkpass rmpass passon passoff passwrappermenu
 
 
 __get_stores () {
@@ -43,6 +43,13 @@ _passon () {
 _passoff () {
     _arguments \
         '(-h --help)'{-h,--help}'[Show help message]'
+}
+
+_passwrappermenu () {
+    _arguments \
+        '(-h --help)'{-h,--help}'[Show help message]' \
+
+    _values 'NAME' $(__get_stores)
 }
 
 _passwrapper () {
