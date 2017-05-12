@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 #
 # passwrapper - Smoothly manage multiple password stores.
-# Copyright © 2015-2016 Till Smejkal <till.smejkal+passwrapper@ossmail.de>
+# Copyright © 2015-2017 Till Smejkal <till.smejkal+passwrapper@ossmail.de>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 #
 # passwrappermenu - Multi-account password selection menu.
-# Copyright © 2016 Till Smejkal <till.smejkal+passwrapper@ossmail.de>
+# Copyright © 2016-2017 Till Smejkal <till.smejkal+passwrapper@ossmail.de>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
