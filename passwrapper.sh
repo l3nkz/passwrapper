@@ -191,11 +191,19 @@ rmpass() {
         printf "Are you sure you want to remove? [y/N] "
         read response
 
+        if [[ -z ${response} ]]; then
+            return 0;
+        fi
+
         case "${response}" in
             [yY])
                 ;;
-            [nN]|*)
+            [nN])
                 return 0
+                ;;
+            *)
+                printf "Unexpected response: '%s'\n" ${response}
+                return 1
                 ;;
         esac
     fi
