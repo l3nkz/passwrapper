@@ -66,7 +66,7 @@ to query for any password in your password stores. However, in contrast to passm
 ask which account should be used and then allows you to query for a password.
 
 Alternatively it is also possible to directly specify which account should be used by the passwrappermenu
-program. The toll will then just setup the environment so that passmenu can be used properly.
+program. The tool will then just setup the environment so that passmenu can be used properly.
 
 ## Short walk-through
 
